@@ -1,17 +1,30 @@
 <?php
 
-namespace subzeta\Ruling\Callback;
+namespace openWebX\Ruling\Callback;
 
-use subzeta\Ruling\Exception\InvalidCallbackException;
+use openWebX\Ruling\Exception\InvalidCallbackException;
 
-abstract class BaseCallback
-{
+/**
+ * Class BaseCallback
+ * @package openWebX\Ruling\Callback
+ */
+abstract class BaseCallback {
+    /**
+     * @var callable|null
+     */
     private $callback;
 
+    /**
+     * @return mixed
+     */
     abstract protected function defaultCallback();
 
-    public function __construct($callback = null)
-    {
+    /**
+     * BaseCallback constructor.
+     * @param null $callback
+     * @throws InvalidCallbackException
+     */
+    public function __construct($callback = null) {
         if (is_null($this->defaultCallback())) {
             throw new InvalidCallbackException('Invalid default callback.');
         }
@@ -23,8 +36,10 @@ abstract class BaseCallback
         $this->callback = $callback;
     }
 
-    public function call()
-    {
+    /**
+     * @return mixed
+     */
+    public function call() {
         return is_callable($this->callback) ? call_user_func($this->callback) : $this->defaultCallback();
     }
 }

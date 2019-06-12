@@ -1,15 +1,25 @@
 <?php
 
-namespace subzeta\Ruling;
+namespace openWebX\Ruling;
 
-use subzeta\Ruling\Exception\InvalidContextException;
+use openWebX\Ruling\Exception\InvalidContextException;
 
-class Context
-{
+/**
+ * Class Context
+ * @package openWebX\Ruling
+ */
+class Context {
+    /**
+     * @var array|mixed
+     */
     private $context = [];
 
-    public function __construct($context)
-    {
+    /**
+     * Context constructor.
+     * @param $context
+     * @throws InvalidContextException
+     */
+    public function __construct(?array $context) {
         if (!$this->valid($context)) {
             throw new InvalidContextException('Context must be an array with string keys and values.');
         }
@@ -17,13 +27,18 @@ class Context
         $this->context = $this->build($context);
     }
 
-    public function get()
-    {
+    /**
+     * @return array|mixed
+     */
+    public function get() {
         return $this->context;
     }
 
-    public function valid($context): bool
-    {
+    /**
+     * @param $context
+     * @return bool
+     */
+    public function valid(?array $context): bool {
         if (empty($context) || !is_array($context)) {
             return false;
         }
@@ -37,8 +52,11 @@ class Context
         return true;
     }
 
-    private function build($context)
-    {
+    /**
+     * @param $context
+     * @return mixed
+     */
+    private function build(array $context) {
         foreach ($context as $key => $value) {
             $context[':' . $key] = $this->processValue($value);
             unset($context[$key]);
@@ -47,8 +65,11 @@ class Context
         return $context;
     }
 
-    private function processValue($value)
-    {
+    /**
+     * @param $value
+     * @return bool|string
+     */
+    private function processValue($value) {
         if (!is_bool($value) && empty($value)) {
             return 'null';
         }
@@ -56,9 +77,11 @@ class Context
         $value = is_callable($value) ? $value() : $value;
 
         if (is_array($value)) {
-            $value = '['.implode(',', array_map(function($e) {return is_string($e) ? '"'.$e.'"' : $e;}, $value)).']';
+            $value = '[' . implode(',', array_map(function ($e) {
+                    return is_string($e) ? '"' . $e . '"' : $e;
+                }, $value)) . ']';
         } elseif (is_string($value)) {
-            $value = '"'.$value.'"';
+            $value = '"' . $value . '"';
         } elseif (is_bool($value)) {
             $value = $value ? 'true' : 'false';
         }

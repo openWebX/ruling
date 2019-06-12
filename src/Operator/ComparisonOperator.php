@@ -1,11 +1,16 @@
 <?php
 
-namespace subzeta\Ruling\Operator;
+namespace openWebX\Ruling\Operator;
 
-class ComparisonOperator
-{
-    public function all(): array
-    {
+/**
+ * Class ComparisonOperator
+ * @package openWebX\Ruling\Operator
+ */
+class ComparisonOperator {
+    /**
+     * @return array
+     */
+    public function all(): array {
         return [
             ' is greater than ' => ' > ',
             ' is greater or equal to ' => ' >= ',
@@ -19,7 +24,7 @@ class ComparisonOperator
             ' isn\'t ' => ' != ',
             ' isn"t ' => ' != ',
             ' is ' => ' == ',
-            ' contained in '    => ' in ',
+            ' contained in ' => ' in ',
             ' in ' => ' in ',
         ];
     }

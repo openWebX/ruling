@@ -1,24 +1,29 @@
 {
-    "name": "subzeta/ruling",
+    "name": "openWebX/ruling",
     "type": "library",
     "description": "An stateless rule engine",
     "keywords": ["rule", "engine", "rule engine", "ruler", "ruling", "rule eval", "assert"],
-    "homepage": "https://github.com/subzeta/ruling",
+    "homepage": "https://github.com/openWebX/ruling",
     "license": "MIT",
     "authors": [
         {
             "name": "Sergio Cadu",
             "role": "Developer",
             "email": "subzeta@gmail.com"
+        },
+        {
+            "name": "Jens Reinemuth",
+            "role": "Developer",
+            "email": "jens@reinemuth.rocks"
         }
     ],
     "autoload": {
         "psr-4": {
-            "subzeta\\Ruling\\": "src/"
+            "openWebX\\Ruling\\": "src/"
         }
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.3",
         "nicoswd/php-rule-parser": "^0.3.5"
     },
     "require-dev": {

@@ -2,9 +2,10 @@
 
 namespace subzeta\Ruling\Test\Callback;
 
+use PHPUnit_Framework_TestCase;
 use subzeta\Ruling\Callback\FailCallback;
 
-class FailCallbackTest extends \PHPUnit_Framework_TestCase
+class FailCallbackTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test

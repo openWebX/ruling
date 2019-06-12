@@ -1,27 +1,35 @@
 <?php
 
-namespace subzeta\Ruling\Evaluator;
+namespace openWebX\Ruling\Evaluator;
 
 use nicoSWD\Rules\Rule;
-use subzeta\Ruling\Context;
-use subzeta\Ruling\Exception\InvalidRuleException;
-use subzeta\Ruling\Operator\ComparisonOperator;
-use subzeta\Ruling\Operator\LogicalOperator;
-use subzeta\Ruling\RuleCollection;
+use openWebX\Ruling\Context;
+use openWebX\Ruling\Exception\InvalidRuleException;
+use openWebX\Ruling\Operator\ComparisonOperator;
+use openWebX\Ruling\Operator\LogicalOperator;
+use openWebX\Ruling\RuleCollection;
 
-class Evaluator
-{
-    public function assert(RuleCollection $rules, Context $context): bool
-    {
+/**
+ * Class Evaluator
+ * @package openWebX\Ruling\Evaluator
+ */
+class Evaluator {
+    /**
+     * @param RuleCollection $rules
+     * @param Context $context
+     * @return bool
+     * @throws InvalidRuleException
+     */
+    public function assert(RuleCollection $rules, Context $context): bool {
         if (!$this->valid($rules, $context)) {
             throw new InvalidRuleException(
-                'Rules aren\'t semantically valid ('.implode(',', $this->build($rules, $context)).').'
+                'Rules aren\'t semantically valid (' . implode(',', $this->build($rules, $context)) . ').'
             );
         }
 
         return array_product(
             array_map(
-                function($rule) {
+                function ($rule) {
                     return (new Rule($rule))->isTrue();
                 },
                 $this->interpret($rules, $context)
@@ -29,16 +37,24 @@ class Evaluator
         );
     }
 
-    public function interpret(RuleCollection $rules, Context $context): array
-    {
+    /**
+     * @param RuleCollection $rules
+     * @param Context $context
+     * @return array
+     */
+    public function interpret(RuleCollection $rules, Context $context): array {
         return $this->build($rules, $context);
     }
 
-    private function valid(RuleCollection $rules, Context $context): bool
-    {
+    /**
+     * @param RuleCollection $rules
+     * @param Context $context
+     * @return bool
+     */
+    private function valid(RuleCollection $rules, Context $context): bool {
         return array_product(
             array_map(
-                function($rule) {
+                function ($rule) {
                     return (new Rule($rule))->isValid();
                 },
                 $this->interpret($rules, $context)
@@ -46,18 +62,26 @@ class Evaluator
         );
     }
 
-    private function build(RuleCollection $rules, Context $context): array
-    {
+    /**
+     * @param RuleCollection $rules
+     * @param Context $context
+     * @return array
+     */
+    private function build(RuleCollection $rules, Context $context): array {
         return array_map(
-            function($rule) use ($context) {
+            function ($rule) use ($context) {
                 return $this->prepare($rule, $context);
             },
             $rules->get()
         );
     }
 
-    private function prepare(string $rule, Context $context): string
-    {
+    /**
+     * @param string $rule
+     * @param Context $context
+     * @return string
+     */
+    private function prepare(string $rule, Context $context): string {
         $replacements = array_merge(
             (new ComparisonOperator())->all(),
             (new LogicalOperator())->all(),

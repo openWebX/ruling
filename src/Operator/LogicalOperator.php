@@ -1,11 +1,16 @@
 <?php
 
-namespace subzeta\Ruling\Operator;
+namespace openWebX\Ruling\Operator;
 
-class LogicalOperator
-{
-    public function all(): array
-    {
+/**
+ * Class LogicalOperator
+ * @package openWebX\Ruling\Operator
+ */
+class LogicalOperator {
+    /**
+     * @return array
+     */
+    public function all(): array {
         return [
             ' and ' => ' && ',
             ' or ' => ' || '

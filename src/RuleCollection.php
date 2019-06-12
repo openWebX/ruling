@@ -1,15 +1,25 @@
 <?php
 
-namespace subzeta\Ruling;
+namespace openWebX\Ruling;
 
-use subzeta\Ruling\Exception\InvalidRuleException;
+use openWebX\Ruling\Exception\InvalidRuleException;
 
-class RuleCollection
-{
+/**
+ * Class RuleCollection
+ * @package openWebX\Ruling
+ */
+class RuleCollection {
+    /**
+     * @var array
+     */
     private $rules = [];
 
-    public function __construct($rules)
-    {
+    /**
+     * RuleCollection constructor.
+     * @param $rules
+     * @throws InvalidRuleException
+     */
+    public function __construct($rules) {
         if (!is_array($rules)) {
             $rules = [$rules];
         }
@@ -21,13 +31,18 @@ class RuleCollection
         $this->rules = $rules;
     }
 
-    public function get(): array
-    {
+    /**
+     * @return array
+     */
+    public function get(): array {
         return $this->rules;
     }
 
-    public function valid($rules): bool
-    {
+    /**
+     * @param $rules
+     * @return bool
+     */
+    public function valid($rules): bool {
         foreach ($rules as $rule) {
             if (empty($rule) || !is_string($rule)) {
                 return false;

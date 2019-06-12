@@ -2,15 +2,16 @@
 
 namespace subzeta\Ruling\Test;
 
+use PHPUnit_Framework_TestCase;
 use subzeta\Ruling\Exception\InvalidCallbackException;
 use subzeta\Ruling\Exception\InvalidContextException;
 use subzeta\Ruling\Exception\InvalidRuleException;
 use subzeta\Ruling\Ruling;
 
-class RulingTest extends \PHPUnit_Framework_TestCase
+class RulingTest extends PHPUnit_Framework_TestCase
 {
     const SUCCESS_CALLBACK_STRING = 'Corrientes demolientes';
-    const FAIL_CALLBACK_STRING = 'El día de los muertos';
+    const FAIL_CALLBACK_STRING = 'El dï¿½a de los muertos';
 
     /** @var Ruling */
     private $ruling;
@@ -258,13 +259,13 @@ class RulingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['something' => 'fideuà'],
-                ':something is equal to "fideuá" and :something isn\'t "croissant"',
+                ['something' => 'fideuï¿½'],
+                ':something is equal to "fideuï¿½" and :something isn\'t "croissant"',
                 self::FAIL_CALLBACK_STRING
             ],
             [
-                ['something' => 'fideuà'],
-                ':something is equal to "fideuà" and :something is not equal to "croissant"',
+                ['something' => 'fideuï¿½'],
+                ':something is equal to "fideuï¿½" and :something is not equal to "croissant"',
                 self::SUCCESS_CALLBACK_STRING
             ],
         ];
@@ -287,13 +288,13 @@ class RulingTest extends \PHPUnit_Framework_TestCase
                 true
             ],
             [
-                ['something' => 'fideuà'],
-                ':something is equal to "fideuá" and :something isn\'t "croissant"',
+                ['something' => 'fideuï¿½'],
+                ':something is equal to "fideuï¿½" and :something isn\'t "croissant"',
                 false
             ],
             [
-                ['something' => 'fideuà'],
-                ':something is equal to "fideuà" and :something is not equal to "croissant"',
+                ['something' => 'fideuï¿½'],
+                ':something is equal to "fideuï¿½" and :something is not equal to "croissant"',
                 true
             ],
         ];
@@ -320,13 +321,13 @@ class RulingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['something' => 'fricandó'],
-                [':something is equal to "fricandó"', ':something is not equal to "fideuà"'],
+                ['something' => 'fricandï¿½'],
+                [':something is equal to "fricandï¿½"', ':something is not equal to "fideuï¿½"'],
                 true
             ],
             [
-                ['something' => 'fricandó'],
-                [':something is not equal to "fricandó"', ':something is equal to "fideuà"'],
+                ['something' => 'fricandï¿½'],
+                [':something is not equal to "fricandï¿½"', ':something is equal to "fideuï¿½"'],
                 false
             ],
             [
@@ -335,8 +336,8 @@ class RulingTest extends \PHPUnit_Framework_TestCase
                 false
             ],
             [
-                ['something' => 'fricandó'],
-                [':something is not equal to "fricandó"', ':something is equal to "fricandó"'],
+                ['something' => 'fricandï¿½'],
+                [':something is not equal to "fricandï¿½"', ':something is equal to "fricandï¿½"'],
                 false
             ],
             [
@@ -354,8 +355,8 @@ class RulingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['something' => 'fideuà'],
-                '(:something is equal to "fideuà" and :something is not equal to "croissant") or :something is equal to "fideuà"',
+                ['something' => 'fideuï¿½'],
+                '(:something is equal to "fideuï¿½" and :something is not equal to "croissant") or :something is equal to "fideuï¿½"',
                 true
             ],
             [
@@ -373,8 +374,8 @@ class RulingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ['something' => 'fideuà'],
-                ':something is equal to "fideuá" and :something is not equal to "croissant"',
+                ['something' => 'fideuï¿½'],
+                ':something is equal to "fideuï¿½" and :something is not equal to "croissant"',
                 false
             ],
         ];

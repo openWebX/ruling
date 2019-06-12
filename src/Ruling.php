@@ -1,13 +1,16 @@
 <?php
 
-namespace subzeta\Ruling;
+namespace openWebX\Ruling;
 
-use subzeta\Ruling\Callback\FailCallback;
-use subzeta\Ruling\Callback\SuccessCallback;
-use subzeta\Ruling\Evaluator\Evaluator;
+use openWebX\Ruling\Callback\FailCallback;
+use openWebX\Ruling\Callback\SuccessCallback;
+use openWebX\Ruling\Evaluator\Evaluator;
 
-class Ruling
-{
+/**
+ * Class Ruling
+ * @package openWebX\Ruling
+ */
+class Ruling {
     /** @var Context */
     private $context;
 
@@ -23,58 +26,87 @@ class Ruling
     /** @var Evaluator */
     private $evaluator;
 
-    public function __construct()
-    {
+    /**
+     * Ruling constructor.
+     */
+    public function __construct() {
         $this->evaluator = new Evaluator();
     }
 
-    public function given($context): self
-    {
+    /**
+     * @param $context
+     * @return Ruling
+     * @throws Exception\InvalidContextException
+     */
+    public function given($context): self {
         $this->context = new Context($context);
 
         return $this;
     }
 
-    public function when($rules): self
-    {
+    /**
+     * @param $rules
+     * @return Ruling
+     * @throws Exception\InvalidRuleException
+     */
+    public function when($rules): self {
         $this->rules = new RuleCollection($rules);
 
         return $this;
     }
 
-    public function then($callback): self
-    {
+    /**
+     * @param $callback
+     * @return Ruling
+     * @throws Exception\InvalidCallbackException
+     */
+    public function then($callback): self {
         $this->successCallback = new SuccessCallback($callback);
 
         return $this;
     }
 
-    public function otherwise($callback): self
-    {
+    /**
+     * @param $callback
+     * @return Ruling
+     * @throws Exception\InvalidCallbackException
+     */
+    public function otherwise($callback): self {
         $this->failCallback = new FailCallback($callback);
 
         return $this;
     }
 
-    public function execute()
-    {
+    /**
+     * @return mixed
+     * @throws Exception\InvalidRuleException
+     */
+    public function execute() {
         return $this->evaluator->assert($this->rules, $this->context) ?
             $this->success()->call() :
             $this->fail()->call();
     }
 
-    public function interpret(): array
-    {
+    /**
+     * @return array
+     */
+    public function interpret(): array {
         return $this->evaluator->interpret($this->rules, $this->context);
     }
 
-    private function success()
-    {
+    /**
+     * @return SuccessCallback|null
+     * @throws Exception\InvalidCallbackException
+     */
+    private function success(): ?SuccessCallback {
         return $this->successCallback ?? new SuccessCallback();
     }
 
-    private function fail()
-    {
+    /**
+     * @return FailCallback|null
+     * @throws Exception\InvalidCallbackException
+     */
+    private function fail(): ?FailCallback {
         return $this->failCallback ?? new FailCallback();
     }
 }

@@ -1,11 +1,16 @@
 <?php
 
-namespace subzeta\Ruling\Callback;
+namespace openWebX\Ruling\Callback;
 
-class FailCallback extends BaseCallback
-{
-    protected function defaultCallback()
-    {
+/**
+ * Class FailCallback
+ * @package openWebX\Ruling\Callback
+ */
+class FailCallback extends BaseCallback {
+    /**
+     * @return bool
+     */
+    protected function defaultCallback() {
         return false;
     }
 }
