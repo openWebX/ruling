@@ -3,7 +3,7 @@ Stateless rule engine to assert statements given a context.
 
 # Install
 ```bash
-$ composer require "subzeta/ruling" : "^2.0"
+$ composer require "openwebx/ruling" : "^2.0"
 ```
 
 # Usage example
@@ -11,7 +11,7 @@ $ composer require "subzeta/ruling" : "^2.0"
 
 require '/path/to/vendor/autoload.php';
 
-use subzeta\Ruling\Ruling;
+use openWebX\Ruling\Ruling;
 
 $my = new \stdClass();
 $my->sensitivity = 80;
